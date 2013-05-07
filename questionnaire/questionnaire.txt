@@ -1,0 +1,488 @@
+===== 1 =====
+
+is this correct code? if not give reason
+
+class test {
+	public  test(int x) {
+	}
+}
+class B extends test {
+}
+
+-----
+
+1733062735: (lv.3 - 0.6974744159317332)
+I think, because in java conventions the class name is capitalized!
+
+597600354: (lv.5 - 195.84346225344476)
+But more importantly, the compiler won't allow it. If you triedto instantiate a B
+B b = new B();
+this invokes the no-arg compiler-constructed constructor, which would invoke the super() of test - and there isn't one. Change to:
+
+541351926: (lv.4 - 0.8244337135488933)
+you need to change the Access level method for 'class test' to 'public class test' because you have two classes in the same physical class file and one of them must be 'public', so because 'class B' extends 'class test', then 'class test' is the upper class.....plus i agree with Chromy Gábor's point regarding java naming conventions, the first character of the class name is Capitalized.....(n_n)
+
+100000184701303: (lv.2 - 0.07152379865380733)
+I think the code will work without any errors there are no errors in the code.....
+
+100001502586840: (lv.5 - 8.955450047719383)
+here test inherits Object class n thru multilevel inheritence B inherits Object n thus have all the methods of Object clas bcoz if B inherits Object directly then there wud b multipl inheritenc which is nt posibl in java
+
+====== 2 =====
+
+By using Singleton we can create only one object of a class. But I want to create exactly 5 object of a class. how can we do that ?
+
+-----
+
+100000910269503: (lv.2 - 0.07731248649695543)
+Singleton means Only Single Object no more, U Can't create.
+
+1662410682: (lv.5 - 158.13685602918957)
+use a static counter inside your class, have your constructors increase it each time and when it's equal to six, throw an exception.
+
+100000853119608: (lv.5 - 1.0744254171421685)
+Classname clonedobj=(Classname)obj.clone(); this will create copies of the object. any1 checked this... post after solving this too
+
+===== 3 =====
+
+import java.sql.*;
+
+public class MysqlConnect{
+	public static void main(String[] args) {
+		System.out.println("MySQL Connect Example.");
+		Connection conn = null;
+		String url = "jdbc:mysql://localhost:3306/";
+		String dbName = "mydata";
+		String driver = "com.mysql.jdbc.Driver";
+		String userName = "root"; 
+		String password = "root";
+		try {
+			Class.forName(driver).newInstance();
+			conn = DriverManager.getConnection(url+dbName,userName,password);
+			System.out.println("Connected to the database");
+			conn.close();
+			System.out.println("Disconnected from database");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+Why is the exception occuring in com.mysql.jdbc.driver? plz help
+
+-----
+
+100001574945332: (lv.5 - 3.5868675536547223)
+set the classpath..
+
+1197894644: (lv.5 - 37.640462089176346)
+If on Eclipse check if you have added the corresponding lib file and included it in your project.
+
+722182618: (lv.5 - 9.601889226103768)
+set the classpath for mysql connector.jar manually in command prompt before u say "java MysqlConnect"
+
+100000261993938: (lv.5 - 1.0440986649063375)
+or by using text editor you can use  to set classpath of mysql connector file .. inthe cmd
+
+===== 4 =====
+
+How can find the length of the string (whitespaces are not included in that length)
+
+-----
+
+1197894644: (lv.5 - 37.640462089176346)
+Here's one way.
+
+String aString = "this is a string.";
+aString = aString.replaceAll("\\s","")
+int lengthWithoutWhitespace = aString.length();
+
+1660065721: (lv.5 - 27.67342405650915)
+If you want to remove spaces only then use, either:
+
+string.replace(" ", "").length() 
+
+- or -
+
+public int lengthWithoutSpace(String str) {
+	int count = 0;
+	if (str!=null && str.length() > 0) {
+		for (char c : str.toCharArray()) {
+			if (!Character.isSpaceChar(c)) {
+				count++;
+			}       
+		}
+	}
+	return count; 
+}
+
+(2nd option performs 3-5x times faster than  replace(CharSequence, CharSquence) because of internal invoking of Pattern. Also see: http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7-b147/java/lang/String.java#String.replace%28java.lang.CharSequence%2Cjava.lang.CharSequence%29
+
+If you want to remove the white space then I recommend to use Apache Commons Lang (again and again :-) ) which performs equally same like my source: 
+http://commons.apache.org/lang/api/org/apache/commons/lang3/StringUtils.html#deleteWhitespace(java.lang.String)"
+
+===== 5 =====
+
+what is the difference between these two expression in java...?
+x=x+10;
+and
+x+=10;
+
+-----
+
+1401705828: (lv.5 - 4.744489756153341)
+doing the same job no difference
+
+100000087830967: (lv.2 - 0.14137215402590267)
+Both expression are same but x+=10 is provide fast execution from the ...x=x+10.differece is in b/w execution time..
+
+100000337629968: (lv.3 - 0.6713358892651549)
+there is a difference...It's explained in the OCP books...suppose you have an int x and that your 10 is of type long. Then x = x + y won't compile, but x += y will...That's because the += can tackel implicit casting while the other expression can't
+
+1759436944: (lv.5 - 36.59940416526925)
+x=x+10; in JVM assembly:
+   2: iload_1
+   3: iconst_1
+   4: iadd
+   5: istore_1
+x+=10; in JVM assembly:
+   2: iinc 1, 1
+
+If JVM followed a RISC architecture then the first code should take 16 cycles for the JVM CPU to execute, and the second opcode should only take 4 cycles to execute.
+
+===== 6 =====
+
+Asked in one written exam???
+what is required in client side to run java program?
+
+1)JVM
+2)JDK
+3)JRE
+
+-----
+
+100000211983204: (lv.5 - 35.388735365979905)
+Jre (jvm is a part of jre)
+
+100000239377385: (lv.2 - 0.12396485220373743)
+3
+
+726770705: (lv.4 - 0.9507891883285077)
+JRE (Java Runtime Environment)
+
+100003567306721: (lv.5 - 1.4313186945607077)
+JDK = JVM + JRE = Developer.
+JRE = Client.
+
+Jdk = java development kit ----> jvm+docs+rad
+jvm = java virtual machine  ----> interpret n run byte code
+jre = java runtime environment  ----> contains jvm
+
+===== 7 =====
+
+what algorithm is used in eclipse/netbeans or any ide to change color of a keyword or identifier, whenever we type.
+how they recognize that it is a keyword ??? they continue search for a keyword or anything else???
+
+-----
+
+100000496758301: (lv.2 - 0.05540357861509949) 
+hmmmmm according to my guess, those IDE's will store the desired keywords in a database and applies color to the keyword when we type it. This is only my guess. Don't know whether it is true or not.
+
+827008289: (lv.3 - 0.7550780442924616)
+they are using sintax analizer... and lexic.. automatons.
+
+597600354: (lv.5 - 195.84346225344476)
+Suppose the code contained:
+ System.out.println("void");
+A simple keyword search would show void as a keyword.
+This is called syntax coloring. It applies not just to keywords, but to comments, identifiers, contants and so on.
+The process is:
+1. Do a syntax analysis of the code
+2. Color according to syntax, or show error
+
+===== 8 =====
+
+Can someone explain the difference between Interfaces and Abstract Class ??
+
+-----
+
+100000418343412: (lv.2 - 0.054334744473905315)
+Abstract Class can contain another methods not Abstract but the Interface all it's methods are abstract
+
+100000525103083: (lv.3 - 0.7547152526241344)
+Interfaces are like classes, consists of method signature or declaration, defination of that method provide @ implemention time. 
+Abstract classes are classes which consist incomplete as well as complete methods...
+
+100001131558881: (lv.3 - 0.708338740044558)
+interfaces are like contracts, if you tell your class "implement" the interface abc, you have to implement all its methods in this class.  an abstract method is like Noor Ul Huda said. if one of your classes inherit an abstract class (which is filled with incomplete and complete methods) you can use the implemented methods and you can override the incomplete methods when you need them.
+
+1809925606: (lv.5 - 6.2989620083107685)
+take a look at this
+http://docs.oracle.com/javase/tutorial/java/IandI/abstract.html
+
+1134568005: (lv.5 - 1.0943168543842612)
+Interfaces are used to define a default behavior whereas abstract classes are used to set a default behavior. Interfaces are came into light to remove the ambiguity caused by using several types of inheritances like multiple, hybrid in C++. Java basically is developed to overcome the drawbacks of C++.
+
+===== 9 =====
+
+I'm newbie here..
+please help me about my problems..
+in my project show this messages "does not have main a method"..
+what solution for it?
+thnks..please
+
+-----
+
+100001122612336: (lv.5 - 10.990228368505635)
+explain more, what you want to do, what classes have you written
+
+1662410682: (lv.5 - 158.13685602918957)
+add a main method.
+
+100001143398866: (lv.3 - 0.7542142836303428)
+In java, if you want to execute a class, compiler will required a main method. Adding main method to class like this: public static void main(String args[]) {}.
+
+597600354: (lv.5 - 195.84346225344476)
+Read your Java textbook
+
+1721692842: (lv.5 - 1.3278405588585875)
+true thats the most basic part lol
+
+===== 10 =====
+
+Please any one describe the difference between Derived class and SubClass ??
+i googled it but still confused.
+
+-----
+
+1428350924: (lv.5 - 1.8186601852897777)
+subclass , derived class, extended class, or child class all r same
+
+100001606284782: (lv.5 - 3.4596290580489186)
+same.......
+
+100000978363217: (lv.3 - 0.749922139237596)
+both are same dude...both classes are derived from main class or super class.it inherits all the properties of its parent class
+
+===== 11 =====
+
+Why do we use "Super" keyword in java
+
+-----
+
+100001512263103: (lv.3 - 0.7477434372284364)
+super keyword is used to call the method or super class or to call the parametrized constructor or super class.
+
+522647441: (lv.5 - 1.117671744335653)
+Is it really so bad that a member of a dedicated Java specific group has asked about the super keyword? Maybe this member has already 'Googled' as the group rules dictate but required further clarity and therefore posted to this group. I know I had some difficulty nderstading inheritnace in Java when I first started out.
+
+1662410682: (lv.5 - 158.13685602918957)
+actually, yes, Barry, it is. you mean to tell me, that by the link I've shown, which is the very first result in google, you wouldn't have understood the super keyword? 
+it says exactly the same as wath Kailash answered, with code examples to go with it.
+Aqib didn't state: I've seen/read this, but I still doubt, nor does he say: I think the super does this, but I'm not sure.
+he just asked a very basic question that is covered in every textbook out there. if putting some effort in it is too hard, maybe development isn't exactly the field you want to go in.
+
+===== 12 =====
+
+I will really appreciate if a sun developer helped me with this question:
+what is the difference between running the application as an applet and running it through "java web start"?
+Thanks in advance
+
+-----
+
+1056865120: (lv.3 - 0.3321362863010173)
+Java Web Start is simply a way to deploy applications to an end-user via the web  whereas an Applet actually runs in the browser.
+
+1832512304: (lv.2 - 0.17181346465023647)
+so if I have to run an applet that needs accessing permissions to the system(readding writing-deletion), do I have to directly launch the applet through the web browser or do I have to run it via "Java web Start" ?
+
+553595095: (lv.2 - 0.04871782295037756)
+most system admins would disallow applets from accessing the machine, so i think through java web start might be a good idea, unless you know for a fact that the admin will allow your applet to run normally
+
+===== 13 =====
+
+hi guys ,please suggest me good books for servlets and jsp for beginners
+
+-----
+
+1759436944: (lv.5 - 36.59940416526925)
+http://docs.oracle.com/javaee/6/tutorial/doc/
+
+1009253472: (lv.5 - 7.03157311284717)
+Get hold of Tomcat too to run this in.   There is a whole wealth of information on the site:
+http://tomcat.apache.org/tomcat-7.0-doc/index.html
+
+100000101836083: (lv.5 - 20.988079160577133)
+Murach's jsp and servlets
+
+1462153604: (lv.1 - 0.042560525644615994)
+head first series ...simply awesome
+
+===== 14 =====
+
+Hello friends! I had built a java program. Now I have built .jar file. That program works fine in my computer. But it install in another computer (that computer not java install.) it does not work. I don’t know how to bundle jre with .jar file correctly. What is the right method deploy .jar file.
+
+-----
+
+1662410682: (lv.5 - 158.13685602918957)
+they need to have the jre installed
+
+100000019696880: (lv.3 - 0.2530121718013977)
+as i know.. JRE can't be binded in JRE... JRE must be installed on that system. if u r trying to run it on some windows OS, than u can bind the JRE with ur application in an .exe
+all u need is "exe4j" to make exe of your application & "installcreator" to make an installer and bind jre with it.
+
+100000067690477: (lv.5 - 3.983822354539271)
+"converting to exe is not a good method always use jar file to execute your java application 
+if  still insist on creating exe use jar2exe 
+http://www.regexlab.com/en/jar2exe/
+
+27316742: (lv.5 - 1.564569937029357)
+You could build as a JApplet and have browser be responsible for java JRE.  Otherwise agree you would have to write in something else.
+
+===== 15 =====
+
+How can I hash sort elements (preferably using an array) and output the sorted values to the user?
+
+-----
+
+1809925606: (lv.5 - 6.2989620083107685)
+1. read the user input 
+2. store it into an array
+3. sort the array
+4. display it to the user.
+
+100003008265694: (lv.4 - 0.9019229249846368)
+For the sorting, you could use recursion. If you are unaware about what it is, Google it. It can be very useful in the right situation.
+
+597600354: (lv.5 - 195.84346225344476)
+This is a duplicate post.
+Choose a hashing function which preserves the order of keys.
+Insert data into the hash table
+Traverse hash table in order.
+
+100001502586840: (lv.5 - 8.955450047719383)
+u can store it in hasset and use Collections.sort to sort elements. But if u r sorting a user defined objects then the class shud implements Comparable and provide the body of compareTo in which u can decide on which cretaria ur elements to b sorted
+
+===== 16 =====
+
+JTextFielf tf = new JTextField(20);
+//wat does 20 means... google says, 20 means columns, but column means wat, if i giv 20 or i giv zero,,, i find one and the same, so watz d use of specifing integer value...
+
+-----
+
+100002889110445: (lv.5 - 14.39586701979585)
+I guess 20 here means how much characters it gonna take from user
+
+1662410682: (lv.5 - 158.13685602918957)
+how about trying it out in a little application? try it with new JTextField(4) and try to write "Hello" in it.
+
+100004899184744: (lv.3 - 0.6310092150120304)
+here 20 is the width  of JTextField means width of 20 characters yes you can add as many characters as you want to enter but it display 20 character but remember one thing that JTextField width is also depended on Layout Manager also.
+
+597600354: (lv.5 - 195.84346225344476)
+and also setPreferredSize()
+
+===== 17 =====
+
+Hey guys..
+I need to invoke another java program (swing application) from one java program (also a swing application)
+its like when a user clicks on 'PREFERENCES',  new frame is created (another java program).. how do i go about implementing this?
+I tried using Runtime class but was somehow unable..
+Plz help..
+
+-----
+
+1434522804: (lv.5 - 2.160267729800963)
+You'll either need to have the jar of the invoked program as a dependency, in that invokes and do a method call or send an http request to the invoked program.
+The latter will need the invoked program to listen to request from a specific port and the invoker program to send the request to the same port (host is assumed to be the same). http rest would be preferable here. Both the programs should be up.
+
+740848381: (lv.5 - 1.000380368162433)
+its getting all too messy in one app.. so m planning to splitting stuff..
+
+597600354: (lv.5 - 195.84346225344476)
+Structure it using class files and packages. If you start a new app it will run in a separate JVM and communication between JVMs is very difficult. Create new package in same app if teh activity is very different. Bt probably just structure by class files. If teh interaction between objects is messy, re-consider your class desgn.
+
+===== 18 =====
+
+How do you create your own Java Documentation on Netbeans IDE?
+
+-----
+
+1241743294: (lv.5 - 2.8858909642159274)
+Before a member, use the documentation comments:
+
+/**
+* This should be displayed as
+* the documentation of this method
+*/
+public void test(){}
+
+1565041324: (lv.2 - 0.14172069758959757)
+Actually I meant to write Java API documentation style..I know how to write those type of documentation
+
+100001587198089: (lv.5 - 4.040639060871533)
+run>generate javadoc......generate documentation
+
+1759436944: (lv.5 - 36.59940416526925)
+1. Click on project.
+2. Click on Tools menu.
+3. Then "Analyse Javadoc.
+
+===== 19 =====
+
+I tried this and got the following error ....Help me ....
+
+Contact c[]=new Contact[20];  //Array of c object of type Contact
+.
+.
+.
+c[0].addContact();           //addContact() is a method of Contact class.
+
+Error I got :
+Exception in thread "main" java.lang.NullPointerException 
+Y is it showing this error and what shud be done to avoid this .
+
+-----
+
+100000101836083: (lv.5 - 20.988079160577133)
+you have to initialize each index seperately under a for loop
+for(int i = 0; i < 20 ; i++)
+{
+    c[i] = new Contact(i);
+}
+
+1662410682: (lv.5 - 158.13685602918957)
+they are just telling you, that you 've forgotten to call the constructor of Contact.
+
+597600354: (lv.5 - 195.84346225344476)
+An array is an object, and you need to construct it ( c= new Contact[20];
+The elements IN the array are also objects, and they also need to be constructed..
+c[0]=new Contact();
+otherwise c[0] is null.
+
+===== 20 =====
+
+i have a date in string data type..its 30/10/2012. i hv 2 save it in db,so i need 2 cnvrt it into date obj..wt value as 30/10/2012 only..hw to do dat? smpledateformat.parse doesn't works as required
+
+-----
+
+597600354: (lv.5 - 195.84346225344476)
+You are dealing with three things:
+A java.util.Date instance, which represents a moment in time
+The appearance of that moment as a text String, which is what SimpleDateFormat gives you.
+The date/time in a database, which java.sql.Date represents.
+
+100000197845300: (lv.3 - 0.6150242854878397)
+Refer to java.util.date class injava docs , it will help..
+
+100002080930865: (lv.5 - 10.781199602557358)
+http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+
+662506290: (lv.5 - 32.451961145557306)
+Ant, use the SimpleDateFormat to convert the string into an Date object, the format above is perfectly parseable with simpleDateformat
+look at the link Sachin gave you above, and you will see the characters needed for the conversion..  but ehre is an hint, use the characters d M and y in your conversion string..
+NOTE however that java.util.date does ALWAYS contain date AND time, so after conversion you will get a date containing the sate you want, and the time 00:00:00.0 (hours:minutes:seconds.milliseconds) 
+but that should not be a problem when inserting it into the database
+
+
+
